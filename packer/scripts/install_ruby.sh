@@ -1,9 +1,7 @@
 #!/bin/bash
-
-# Install Ruby & dependences
-echo "Installing Ruby ..."
+#
+# This script installs ruby
+#
+set -e
 apt update
 apt install -y ruby-full ruby-bundler build-essential
-echo "Finished installation Ruby"
-
-
