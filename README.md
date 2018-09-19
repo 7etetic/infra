@@ -41,7 +41,7 @@ See `README.md` in each folder for the additional details.
 
 Installation new VM instance at GCP with script:
 
-sudo gcloud compute instances create --boot-disk-size=10GB --image=ubuntu-1604-xenial-v20180912 --image-project=ubuntu-os-cloud --machine-type=g1-small --tags puma-server --restart-on-failure --zone=europe-west1-d reddit-app02 startup-script=./install_app.sh
+sudo gcloud compute instances create --boot-disk-size=10GB --image=ubuntu-1604-xenial-v20180912 --image-project=ubuntu-os-cloud --machine-type=g1-small --tags puma-server --restart-on-failure --zone=europe-west1-d --metadata-from-file startup-script=installapp.sh reddit-app02
 
 # Support
 [(Back to top)](#table-of-contents)
