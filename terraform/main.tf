@@ -22,7 +22,7 @@ resource "google_compute_instance" "app" {
     access_config {}
   }
   // Add SSH key
-  metadate {
+  metadata {
     sshKeys = "appuser:${file("~/.ssh/appuser.pub")}"
   }
 }
