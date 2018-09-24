@@ -29,7 +29,7 @@ resource "google_compute_instance" "app" {
 
 //Define firewall rules
 resource "google_compute_firewall" "firewall_puma" {
-  name    = "allow_puma_default"
+  name    = "allow-puma-default"
   // Network name for the rule
   network = "default"
   // Kind of access to allow
