@@ -26,3 +26,19 @@ resource "google_compute_instance" "app" {
     sshKeys = "appuser:${file("~/.ssh/appuser.pub")}"
   }
 }
+
+//Define firewall rules
+resource "google_compute_firewall" "firewall_puma" {
+  name    = "allow_puma_default"
+  // Network name for the rule
+  network = "default"
+  // Kind of access to allow
+  allow {
+    protocol = "tcp"
+    ports    = ["9292"]
+  }
+  // Allowed IP range
+  source_ranges = ["0.0.0.0/0"]
+  // Rule applicable for tags
+  target_tags = ["reddit-app"]
+}
