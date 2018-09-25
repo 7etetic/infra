@@ -35,10 +35,10 @@ resource "google_compute_instance" "app" {
     private_key = "${file("${var.private_key_path}")}"
   }
   // Define provisioners
-  provisioner "file" {
-    source      = "files/puma.service"
-    destination = "/tmp/puma.service"
-  }
+#  provisioner "file" {
+#    source      = "files/puma.service"
+#    destination = "/tmp/puma.service"
+#  }
   provisioner "remote-exec" {
     script = "files/deploy.sh"
   }
