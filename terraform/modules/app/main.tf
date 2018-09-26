@@ -1,28 +1,39 @@
-// Ensure app instance is present
-module "app_instance" {
-  source     = "../gce/vm"
-  name       = "${var.name}"
-  tags       = "${var.tags}"
-  disk_image = "${var.disk_image}"
+resource "google_compute_instance" "app" {
+  name         = "reddit-app"
+  machine_type = "g1-small"
+  zone         = "europe-west1-b"
+  tags         = ["reddit-app"]
 
-  access_config = {
-    nat_ip = "${google_compute_address.app_ip.address}"
+  boot_disk {
+    initialize_params {
+      image = "${var.app_disk_image}"
+    }
   }
 
-  username        = "${var.username}"
-  public_key_path = "${var.public_key_path}"
+  network_interface {
+    network       = "default"
+    access_config = {
+      nat_ip = "${google_compute_address.app_ip.address}"
+    }
+  }
+
+  metadata {
+    sshKeys = "appuser:${file(var.public_key_path)}"
+  }
 }
 
-// Ensure static IP address for instance is present
 resource "google_compute_address" "app_ip" {
-  name = "${var.name}-ip"
+  name = "reddit-app-ip"
 }
 
-// Ensure firewall rule for app is present and configured
-module "app_firewall" {
-  source      = "../vpc/firewall"
-  name        = "${var.firewall_name}"
-  network     = "${var.network}"
-  ports       = "${var.firewall_ports}"
-  target_tags = "${var.tags}"
+resource "google_compute_firewall" "firewall_puma" {
+  name    = "allow-puma-default"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["9292"]
+  }
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["reddit-app"]
 }
