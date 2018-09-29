@@ -22,11 +22,32 @@
 - name: "Reddit App: Install mongodb"
   hosts: all
   gather_facts: no
+  become: yes
 
   tasks:
+  # Add MongoDB repository key
+  - name: Add MongoDB APT key
+    apt_key:
+      id: EA312927
+      keyserver: keyserver.ubuntu.com
+
+  # Add MongoDB repository
+  - name: Add MongoDB APT repository
+    apt_repository:
+      repo: deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse
+      state: present
+
+  # Install MongoDB & start as a service
   - name: Install mongodb package
-    debug:
-      msg: "В этом сценарии нужно добавить модули для установки mongodb, после можно удалить вызов модуля debug, который выводит это сообщение"
+    apt:
+      name: mongodb-org
+      state: present
+
+  - name: Configure service supervisor
+    systemd:
+      name: mongod
+      enabled: yes
+      state: started
 
 # Deploy reddit app
 - name: "Reddit App: Deploy application"

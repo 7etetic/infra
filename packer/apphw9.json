@@ -3,11 +3,11 @@
   {
   "type": "googlecompute",
   "project_id": "infra-216911",
-  "image_name": "reddit-app-base-{{timestamp}}",
+  "image_name": "reddit-app-base",
   "source_image": "ubuntu-1604-xenial-v20180912",
   "zone": "europe-west1-b",
   "ssh_username": "appuser",
-  "machine_type": "g1-small"
+  "machine_type": "f1-micro"
   }
  ],
 "provisioners": [
