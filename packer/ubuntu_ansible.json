@@ -12,8 +12,8 @@
  ],
 "provisioners": [
   {
-  "type": "ansible",
-  "playbook_file": "../ansible/playbooks/reddit_app.yml"
+    "type": "ansible",
+    "playbook_file": "../ansible/playbooks/reddit_app.yml"
   }
  ]
 }
