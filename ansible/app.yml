@@ -1,20 +1,7 @@
----
-
-- hosts: tag_app
-  gather_facts: false
+# Configure App hosts
+- name: Configure App
+  hosts: app
   become: true
 
-  pre_tasks:
-    - name: Ensure python 2.7 is present
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-      register: output
-      changed_when:
-        - output.stdout != ""
-        - output.stdout != "\r\n"
-    - name: Gather facts
-      setup:
-
   roles:
-    - ansible-role-ruby
-    - ansible-role-reddit-app
-    - jdauphant.nginx
+    - app

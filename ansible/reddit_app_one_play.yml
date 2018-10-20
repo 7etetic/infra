@@ -48,7 +48,7 @@
         chdir: /home/appuser/reddit
       tags: deploy-tag
 
-  handlers:
+handlers:
   - name: restart mongod
     become: true
     service: name=mongod state=restarted
